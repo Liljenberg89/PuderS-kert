@@ -1,0 +1,33 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0px;
+  margin: 0px;
+}
+.container {
+}
+.sectionOne {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(33, 74, 110);
+  width: 100vw;
+  height: 100vh;
+  color: white;
+}
+h1 {
+  font-size: 100px;
+}
+h4 {
+  font-size: x-large;
+}
+.intro {
+  margin-top: 10vh;
+  margin-left: 10vw;
+}
+.week-input {
+  margin-top: 50px;
+}
