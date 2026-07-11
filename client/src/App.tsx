@@ -17,18 +17,24 @@ function App() {
   return (
     <div className="container">
       <div className="sectionOne">
-        <div className="intro">
-          <h1>Träffa rätt vecka.</h1>
-          <h4>
-            PowderWeek räknar ut vilka veckor som oftast levererar puder – ort
-            för ort, vecka för vecka.
-          </h4>
-        </div>
-        <div className="filter">
-          <h6>Ort</h6> <h6>Vecka</h6> <span></span>
-          <div className="drop-down">Sälen</div>
-          <div className="drop-down">Alla veckor</div>
-          <button> Visa</button>
+        <div className="sectionOne-box">
+          <div className="intro">
+            <h1>Träffa rätt vecka.</h1>
+            <h4>
+              PowderWeek räknar ut vilka veckor som oftast levererar puder – ort
+              för ort, vecka för vecka.
+            </h4>
+          </div>
+          <div className="filter">
+            <h6>Ort</h6> <h6>Vecka</h6> <span></span>
+            <div className="drop-down">
+              Sälen <i className="fa-solid fa-angle-down"></i>
+            </div>
+            <div className="drop-down">
+              Alla veckor <i className="fa-solid fa-angle-down"></i>
+            </div>
+            <button> Visa</button>
+          </div>
         </div>
       </div>
 
