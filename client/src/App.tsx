@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Header from "./components/header";
 import "./App.css";
 
 function App() {
@@ -16,13 +16,14 @@ function App() {
   const [week, setWeek] = useState<number>(getISOWeek(new Date()));
   return (
     <div className="container">
+      <Header />
       <div className="sectionOne">
         <div className="sectionOne-box">
           <div className="intro">
             <h1>Träffa rätt vecka.</h1>
             <h4>
-              PowderWeek räknar ut vilka veckor som oftast levererar puder – ort
-              för ort, vecka för vecka.
+              PuderSäkert räknar ut vilka veckor som oftast levererar puder –
+              ort för ort, vecka för vecka.
             </h4>
           </div>
           <div className="filter">

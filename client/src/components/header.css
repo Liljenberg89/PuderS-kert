@@ -1,0 +1,16 @@
+.header {
+  width: 100vw;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+.header-box {
+  width: 55vw;
+  display: flex;
+  justify-content: space-between;
+}
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
