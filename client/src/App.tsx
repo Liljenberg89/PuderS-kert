@@ -18,11 +18,25 @@ function App() {
     <div className="container">
       <div className="sectionOne">
         <div className="intro">
-          <h1>PuderSäkert</h1>
-          <h4>Av puderåkare, för puderåkare!</h4>
-          <div className="week-input">
-            <h2>Vecka {week}</h2>
-          </div>
+          <h1>Träffa rätt vecka.</h1>
+          <h4>
+            PowderWeek räknar ut vilka veckor som oftast levererar puder – ort
+            för ort, vecka för vecka.
+          </h4>
+        </div>
+        <div className="filter">
+          <h6>Ort</h6> <h6>Vecka</h6> <span></span>
+          <div className="drop-down">Sälen</div>
+          <div className="drop-down">Alla veckor</div>
+          <button> Visa</button>
+        </div>
+      </div>
+
+      <div className="graph">
+        <div className="head-info">
+          <div className="info">Bästa vecka</div>
+          <div className="info">Snitt nysnö v.{week}</div>
+          <div className="info"></div>
         </div>
       </div>
     </div>
