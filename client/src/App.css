@@ -46,6 +46,10 @@ h4 {
   padding-left: 20px;
   border-radius: 7px;
 }
+.staple-graph {
+  height: 300px;
+  background-color: #52616f;
+}
 .filter {
   width: 60%;
   padding: 15px;

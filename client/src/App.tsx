@@ -43,17 +43,18 @@ function App() {
         <div className="head-info">
           <div className="info">
             <span>Bästa vecka</span>
-            <span>v.8</span>
+            <h3>v.8</h3>
           </div>
           <div className="info">
             <span>Snitt nysnö v.{week}</span>
-            <span>47 cm</span>
+            <h3>47 cm</h3>
           </div>
           <div className="info">
             <span>Puderveckor</span>
-            <span>10 av 21</span>
+            <h3>10 av 21</h3>
           </div>
         </div>
+        <div className="staple-graph"></div>
       </div>
     </div>
   );
