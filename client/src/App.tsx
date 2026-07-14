@@ -41,9 +41,18 @@ function App() {
 
       <div className="graph">
         <div className="head-info">
-          <div className="info">Bästa vecka</div>
-          <div className="info">Snitt nysnö v.{week}</div>
-          <div className="info"></div>
+          <div className="info">
+            <span>Bästa vecka</span>
+            <span>v.8</span>
+          </div>
+          <div className="info">
+            <span>Snitt nysnö v.{week}</span>
+            <span>47 cm</span>
+          </div>
+          <div className="info">
+            <span>Puderveckor</span>
+            <span>10 av 21</span>
+          </div>
         </div>
       </div>
     </div>
