@@ -8,6 +8,7 @@ const Header = () => {
           <i
             className="fa-solid fa-snowflake"
             style={{ fontSize: "xx-large" }}
+            aria-hidden="true"
           ></i>
           <h2>PuderSäkert</h2>
         </div>

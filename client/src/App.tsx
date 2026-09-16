@@ -1,19 +1,9 @@
-import { useState } from "react";
-import Header from "./components/header";
+import Header from "./components/Header";
+import { getISOWeek } from "./utils/date";
 import "./App.css";
 
 function App() {
-  function getISOWeek(date: Date): number {
-    const d = new Date(
-      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
-    );
-    const dayNum = d.getUTCDay() || 7;
-    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-    return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
-  }
-
-  const [week, setWeek] = useState<number>(getISOWeek(new Date()));
+  const week = getISOWeek(new Date());
   return (
     <div className="container">
       <Header />
@@ -29,10 +19,10 @@ function App() {
           <div className="filter">
             <h6>Ort</h6> <h6>Vecka</h6> <span></span>
             <div className="drop-down">
-              Sälen <i className="fa-solid fa-angle-down"></i>
+              Sälen <i className="fa-solid fa-angle-down" aria-hidden="true"></i>
             </div>
             <div className="drop-down">
-              Alla veckor <i className="fa-solid fa-angle-down"></i>
+              Alla veckor <i className="fa-solid fa-angle-down" aria-hidden="true"></i>
             </div>
             <button> Visa</button>
           </div>
