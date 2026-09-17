@@ -68,6 +68,21 @@ h4 {
   justify-content: space-between;
   align-items: center;
 }
+.drop-down select {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+  cursor: pointer;
+}
+.drop-down select:focus {
+  outline: none;
+}
+.error {
+  color: #d95926;
+}
 button {
   background-color: #d95926;
   border: solid 1px #e3eaf1;

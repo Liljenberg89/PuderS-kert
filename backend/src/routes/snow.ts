@@ -1,13 +1,20 @@
 import { Router } from "express";
 import { fetchHistoricalSnowfall } from "../services/openMeteo";
+import { findResortById } from "../data/resorts";
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { lat, lon, start, end } = req.query;
+  const { resortId, start, end } = req.query;
 
-  if (typeof lat !== "string" || typeof lon !== "string") {
-    res.status(400).json({ error: "lat and lon are required" });
+  if (typeof resortId !== "string") {
+    res.status(400).json({ error: "resortId is required" });
+    return;
+  }
+
+  const resort = findResortById(resortId);
+  if (!resort) {
+    res.status(404).json({ error: `Unknown resortId: ${resortId}` });
     return;
   }
 
@@ -16,8 +23,8 @@ router.get("/", async (req, res) => {
 
   try {
     const snowfall = await fetchHistoricalSnowfall(
-      Number(lat),
-      Number(lon),
+      resort.latitude,
+      resort.longitude,
       startDate,
       endDate,
     );
