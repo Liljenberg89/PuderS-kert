@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
-import { getISOWeek, WINTER_SEASON_WEEKS } from "./utils/date";
-import { fetchResorts, fetchSnowfall, type DailySnowfall, type Resort } from "./api";
+import SnowfallChart from "./components/SnowfallChart";
+import { WINTER_SEASON_WEEKS } from "./utils/date";
+import {
+  fetchResorts,
+  fetchWeeklySnowfall,
+  type Resort,
+  type WeeklyAverageSnowfall,
+} from "./api";
 import "./App.css";
 
 function App() {
-  const week = getISOWeek(new Date());
-
   const [resorts, setResorts] = useState<Resort[]>([]);
   const [selectedResortId, setSelectedResortId] = useState("");
   const [selectedWeek, setSelectedWeek] = useState<"all" | number>("all");
-  const [snowfall, setSnowfall] = useState<DailySnowfall[] | null>(null);
+  const [weeklyData, setWeeklyData] = useState<WeeklyAverageSnowfall[] | null>(
+    null,
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,14 +34,25 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchSnowfall(selectedResortId);
-      setSnowfall(data);
+      const data = await fetchWeeklySnowfall(selectedResortId);
+      setWeeklyData(data);
     } catch {
       setError("Kunde inte hämta snödata.");
     } finally {
       setLoading(false);
     }
   };
+
+  const bestWeek = weeklyData
+    ? weeklyData.reduce((best, current) =>
+        current.avgSnowfallCm > best.avgSnowfallCm ? current : best,
+      )
+    : null;
+
+  const selectedWeekAvg =
+    weeklyData && selectedWeek !== "all"
+      ? weeklyData.find((w) => w.week === selectedWeek)?.avgSnowfallCm
+      : undefined;
 
   return (
     <div className="container">
@@ -89,12 +106,6 @@ function App() {
             </button>
           </div>
           {error && <p className="error">{error}</p>}
-          {snowfall && (
-            <p>
-              Hämtade {snowfall.length} dagars historisk snödata för{" "}
-              {resorts.find((r) => r.id === selectedResortId)?.name}.
-            </p>
-          )}
         </div>
       </div>
 
@@ -102,18 +113,30 @@ function App() {
         <div className="head-info">
           <div className="info">
             <span>Bästa vecka</span>
-            <h3>v.8</h3>
+            <h3>{bestWeek ? `v.${bestWeek.week}` : "–"}</h3>
           </div>
           <div className="info">
-            <span>Snitt nysnö v.{week}</span>
-            <h3>47 cm</h3>
+            <span>
+              {selectedWeek !== "all"
+                ? `Snitt nysnö v.${selectedWeek}`
+                : "Snitt nysnö (välj vecka)"}
+            </span>
+            <h3>{selectedWeekAvg !== undefined ? `${selectedWeekAvg} cm` : "–"}</h3>
           </div>
           <div className="info">
             <span>Puderveckor</span>
             <h3>10 av 21</h3>
           </div>
         </div>
-        <div className="staple-graph"></div>
+        <div className={weeklyData ? "staple-graph" : "staple-graph staple-graph--empty"}>
+          {weeklyData && (
+            <SnowfallChart
+              data={weeklyData}
+              selectedWeek={selectedWeek}
+              bestWeek={bestWeek?.week ?? null}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

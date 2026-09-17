@@ -48,6 +48,8 @@ h4 {
 }
 .staple-graph {
   height: 300px;
+}
+.staple-graph--empty {
   background-color: #52616f;
 }
 .filter {
