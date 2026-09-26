@@ -29,19 +29,15 @@ function App() {
       .catch(() => setError("Kunde inte hämta skidorter."));
   }, []);
 
-  const handleShow = async () => {
+  useEffect(() => {
     if (!selectedResortId) return;
     setLoading(true);
     setError(null);
-    try {
-      const data = await fetchWeeklySnowfall(selectedResortId);
-      setWeeklyData(data);
-    } catch {
-      setError("Kunde inte hämta snödata.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchWeeklySnowfall(selectedResortId)
+      .then(setWeeklyData)
+      .catch(() => setError("Kunde inte hämta snödata."))
+      .finally(() => setLoading(false));
+  }, [selectedResortId]);
 
   const bestWeek = weeklyData
     ? weeklyData.reduce((best, current) =>
@@ -101,9 +97,7 @@ function App() {
               </select>
               <i className="fa-solid fa-angle-down" aria-hidden="true"></i>
             </div>
-            <button onClick={handleShow} disabled={loading || !selectedResortId}>
-              {loading ? "Hämtar..." : "Visa"}
-            </button>
+            <span className="loading-indicator">{loading ? "Hämtar..." : ""}</span>
           </div>
           {error && <p className="error">{error}</p>}
         </div>
