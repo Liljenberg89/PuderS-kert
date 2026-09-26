@@ -50,6 +50,16 @@ function App() {
       ? weeklyData.find((w) => w.week === selectedWeek)?.avgSnowfallCm
       : undefined;
 
+  const powderWeeksCount = weeklyData
+    ? (() => {
+        const seasonAverage =
+          weeklyData.reduce((sum, w) => sum + w.avgSnowfallCm, 0) /
+          weeklyData.length;
+        return weeklyData.filter((w) => w.avgSnowfallCm >= seasonAverage)
+          .length;
+      })()
+    : null;
+
   return (
     <div className="container">
       <Header />
@@ -119,7 +129,11 @@ function App() {
           </div>
           <div className="info">
             <span>Puderveckor</span>
-            <h3>10 av 21</h3>
+            <h3>
+              {weeklyData
+                ? `${powderWeeksCount} av ${weeklyData.length}`
+                : "–"}
+            </h3>
           </div>
         </div>
         <div className={weeklyData ? "staple-graph" : "staple-graph staple-graph--empty"}>
