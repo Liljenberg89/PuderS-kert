@@ -73,9 +73,12 @@ function App() {
             </h4>
           </div>
           <div className="filter">
-            <h6>Ort</h6> <h6>Vecka</h6> <span></span>
+            <label htmlFor="resort-select">Ort</label>
+            <label htmlFor="week-select">Vecka</label>
+            <span></span>
             <div className="drop-down">
               <select
+                id="resort-select"
                 value={selectedResortId}
                 onChange={(e) => setSelectedResortId(e.target.value)}
                 disabled={resorts.length === 0}
@@ -91,6 +94,7 @@ function App() {
             </div>
             <div className="drop-down">
               <select
+                id="week-select"
                 value={selectedWeek}
                 onChange={(e) =>
                   setSelectedWeek(
