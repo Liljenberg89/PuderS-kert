@@ -10,6 +10,8 @@ import {
 } from "./api";
 import "./App.css";
 
+const HISTORY_YEARS = 10;
+
 function App() {
   const [resorts, setResorts] = useState<Resort[]>([]);
   const [selectedResortId, setSelectedResortId] = useState("");
@@ -33,7 +35,7 @@ function App() {
     if (!selectedResortId) return;
     setLoading(true);
     setError(null);
-    fetchWeeklySnowfall(selectedResortId)
+    fetchWeeklySnowfall(selectedResortId, HISTORY_YEARS)
       .then(setWeeklyData)
       .catch(() => setError("Kunde inte hämta snödata."))
       .finally(() => setLoading(false));
@@ -153,6 +155,11 @@ function App() {
             />
           )}
         </div>
+        <p className="data-note">
+          Baserat på snödata från de senaste {HISTORY_YEARS} åren, hämtad från
+          väderanalysmodeller (Open-Meteo). Siffrorna är mest tillförlitliga
+          för att jämföra veckor mot varandra – inte som exakta cm-mått.
+        </p>
       </div>
     </div>
   );

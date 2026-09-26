@@ -112,6 +112,12 @@ h4 {
 .error {
   color: #d95926;
 }
+.data-note {
+  margin-top: 16px;
+  color: #8b98a3;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
 button {
   background-color: #d95926;
   border: solid 1px #e3eaf1;
