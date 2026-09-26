@@ -1,0 +1,23 @@
+.about-card {
+  width: 50vw;
+  color: #52616f;
+  line-height: 1.6;
+}
+.about-card h3 {
+  margin-top: 20px;
+  margin-bottom: 6px;
+  color: #16202c;
+}
+.about-card h3:first-child {
+  margin-top: 0;
+}
+.about-card a {
+  color: #d95926;
+}
+
+@media (max-width: 768px) {
+  .about-card {
+    width: 88vw;
+    padding: 24px;
+  }
+}

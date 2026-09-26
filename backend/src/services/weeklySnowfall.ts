@@ -7,11 +7,23 @@ export interface WeeklyAverageSnowfall {
   avgSnowfallCm: number;
 }
 
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const cache = new Map<
+  string,
+  { data: WeeklyAverageSnowfall[]; expiresAt: number }
+>();
+
 export async function fetchWeeklyAverageSnowfall(
   latitude: number,
   longitude: number,
   years: number,
 ): Promise<WeeklyAverageSnowfall[]> {
+  const cacheKey = `${latitude},${longitude},${years}`;
+  const cached = cache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.data;
+  }
+
   const currentYear = new Date().getFullYear();
   const startDate = `${currentYear - years}-01-01`;
   const endDate = `${currentYear - 1}-12-31`;
@@ -37,7 +49,7 @@ export async function fetchWeeklyAverageSnowfall(
     yearTotals.set(year, (yearTotals.get(year) ?? 0) + day.snowfallCm);
   }
 
-  return WINTER_SEASON_WEEKS.map((week) => {
+  const result = WINTER_SEASON_WEEKS.map((week) => {
     const yearTotals = weeklyTotalsByYear.get(week);
     if (!yearTotals || yearTotals.size === 0) {
       return { week, avgSnowfallCm: 0 };
@@ -46,4 +58,7 @@ export async function fetchWeeklyAverageSnowfall(
     const avg = totals.reduce((sum, total) => sum + total, 0) / totals.length;
     return { week, avgSnowfallCm: Math.round(avg * 10) / 10 };
   });
+
+  cache.set(cacheKey, { data: result, expiresAt: Date.now() + CACHE_TTL_MS });
+  return result;
 }

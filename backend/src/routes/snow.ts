@@ -1,9 +1,56 @@
 import { Router } from "express";
 import { fetchHistoricalSnowfall } from "../services/openMeteo";
 import { fetchWeeklyAverageSnowfall } from "../services/weeklySnowfall";
-import { findResortById } from "../data/resorts";
+import { findResortById, resorts } from "../data/resorts";
 
 const router = Router();
+
+const BATCH_CONCURRENCY = 4;
+
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  limit: number,
+  fn: (item: T) => Promise<R>,
+): Promise<R[]> {
+  const results: R[] = [];
+  for (let i = 0; i < items.length; i += limit) {
+    const chunk = items.slice(i, i + limit);
+    results.push(...(await Promise.all(chunk.map(fn))));
+  }
+  return results;
+}
+
+router.get("/weekly/all", async (req, res) => {
+  const { years } = req.query;
+  const yearsCount = typeof years === "string" ? Number(years) : 10;
+
+  const results = await mapWithConcurrency(
+    resorts,
+    BATCH_CONCURRENCY,
+    async (resort) => {
+      try {
+        const weekly = await fetchWeeklyAverageSnowfall(
+          resort.latitude,
+          resort.longitude,
+          yearsCount,
+        );
+        const bestWeek = weekly.reduce((best, current) =>
+          current.avgSnowfallCm > best.avgSnowfallCm ? current : best,
+        );
+        return {
+          resortId: resort.id,
+          bestWeek: bestWeek.week,
+          bestWeekAvgCm: bestWeek.avgSnowfallCm,
+        };
+      } catch (err) {
+        console.error(`Failed to fetch weekly data for ${resort.id}:`, err);
+        return { resortId: resort.id, bestWeek: null, bestWeekAvgCm: null };
+      }
+    },
+  );
+
+  res.json(results);
+});
 
 router.get("/weekly", async (req, res) => {
   const { resortId, years } = req.query;

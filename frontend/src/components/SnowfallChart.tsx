@@ -45,13 +45,17 @@ function SnowfallChart({
         <XAxis dataKey="week" tickFormatter={(w) => `v.${w}`} interval={1} />
         <YAxis unit=" cm" />
         <Tooltip
-          formatter={(value: number, key: string) => [
+          formatter={(value, key) => [
             `${value} cm`,
-            key === "compare" ? compareLabel : primaryLabel,
+            key === "compare" ? compareLabel ?? "" : primaryLabel,
           ]}
           labelFormatter={(w) => `Vecka ${w}`}
         />
-        {isComparing && <Legend formatter={(key) => (key === "compare" ? compareLabel : primaryLabel)} />}
+        {isComparing && (
+          <Legend
+            formatter={(key) => (key === "compare" ? compareLabel ?? "" : primaryLabel)}
+          />
+        )}
         <Bar dataKey="primary" name={primaryLabel} fill={DEFAULT_COLOR}>
           {!isComparing &&
             data.map((entry) => {
