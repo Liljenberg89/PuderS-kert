@@ -73,10 +73,14 @@ function App() {
             </h4>
           </div>
           <div className="filter">
-            <label htmlFor="resort-select">Ort</label>
-            <label htmlFor="week-select">Vecka</label>
-            <span></span>
-            <div className="drop-down">
+            <label className="label-ort" htmlFor="resort-select">
+              Ort
+            </label>
+            <label className="label-week" htmlFor="week-select">
+              Vecka
+            </label>
+            <span className="spacer"></span>
+            <div className="drop-down field-ort">
               <select
                 id="resort-select"
                 value={selectedResortId}
@@ -92,7 +96,7 @@ function App() {
               </select>
               <i className="fa-solid fa-angle-down" aria-hidden="true"></i>
             </div>
-            <div className="drop-down">
+            <div className="drop-down field-week">
               <select
                 id="week-select"
                 value={selectedWeek}

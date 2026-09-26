@@ -60,7 +60,28 @@ h4 {
   display: grid;
   color: #52616f;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "label-ort label-week spacer"
+    "field-ort field-week loading";
   gap: 4px;
+}
+.label-ort {
+  grid-area: label-ort;
+}
+.label-week {
+  grid-area: label-week;
+}
+.spacer {
+  grid-area: spacer;
+}
+.field-ort {
+  grid-area: field-ort;
+}
+.field-week {
+  grid-area: field-week;
+}
+.loading-indicator {
+  grid-area: loading;
 }
 .drop-down {
   position: relative;
@@ -96,4 +117,37 @@ button {
   border: solid 1px #e3eaf1;
   border-radius: 5px;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .sectionOne-box {
+    width: 88vw;
+    padding: 30px 20px;
+  }
+  .graph {
+    width: 88vw;
+    padding: 24px;
+    margin-top: 24px;
+  }
+  .head-info {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 8px;
+  }
+  .info {
+    padding: 12px 16px;
+  }
+  .filter {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "label-ort"
+      "field-ort"
+      "label-week"
+      "field-week"
+      "loading";
+  }
+  h1 {
+    font-size: x-large;
+  }
 }
