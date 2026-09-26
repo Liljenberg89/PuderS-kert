@@ -1,4 +1,4 @@
-export type Country = "SE" | "NO" | "AT" | "FR";
+export type Country = "SE" | "NO" | "AT" | "FR" | "CH";
 
 export interface Resort {
   id: string;
@@ -28,6 +28,11 @@ export const resorts: Resort[] = [
   { id: "val-thorens", name: "Val Thorens", country: "FR", latitude: 45.2977, longitude: 6.58 },
   { id: "les-deux-alpes", name: "Les Deux Alpes", country: "FR", latitude: 45.0122, longitude: 6.1244 },
   { id: "tignes", name: "Tignes", country: "FR", latitude: 45.4692, longitude: 6.9061 },
+
+  { id: "zermatt", name: "Zermatt", country: "CH", latitude: 46.0207, longitude: 7.7491 },
+  { id: "st-moritz", name: "St. Moritz", country: "CH", latitude: 46.4908, longitude: 9.8355 },
+  { id: "verbier", name: "Verbier", country: "CH", latitude: 46.0967, longitude: 7.2276 },
+  { id: "davos", name: "Davos", country: "CH", latitude: 46.8027, longitude: 9.8360 },
 ];
 
 export function findResortById(id: string): Resort | undefined {

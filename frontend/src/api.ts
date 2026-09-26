@@ -1,7 +1,7 @@
 export interface Resort {
   id: string;
   name: string;
-  country: "SE" | "NO" | "AT" | "FR";
+  country: "SE" | "NO" | "AT" | "FR" | "CH";
   latitude: number;
   longitude: number;
 }

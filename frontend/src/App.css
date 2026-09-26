@@ -46,6 +46,30 @@ h4 {
   padding-left: 20px;
   border-radius: 7px;
 }
+.info-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-primary {
+  background-color: #52616f;
+}
+.dot-compare {
+  background-color: #4c94d9;
+}
 .staple-graph {
   height: 300px;
 }
@@ -53,32 +77,42 @@ h4 {
   background-color: #52616f;
 }
 .filter {
-  width: 60%;
+  width: 80%;
   padding: 15px;
   border-radius: 5px;
   background-color: white;
   display: grid;
   color: #52616f;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
-    "label-ort label-week spacer"
-    "field-ort field-week loading";
+    "label-ort label-compare label-week label-years"
+    "field-ort field-compare field-week field-years"
+    "loading loading loading loading";
   gap: 4px;
 }
 .label-ort {
   grid-area: label-ort;
 }
+.label-compare {
+  grid-area: label-compare;
+}
 .label-week {
   grid-area: label-week;
 }
-.spacer {
-  grid-area: spacer;
+.label-years {
+  grid-area: label-years;
 }
 .field-ort {
   grid-area: field-ort;
 }
+.field-compare {
+  grid-area: field-compare;
+}
 .field-week {
   grid-area: field-week;
+}
+.field-years {
+  grid-area: field-years;
 }
 .loading-indicator {
   grid-area: loading;
@@ -149,8 +183,12 @@ button {
     grid-template-areas:
       "label-ort"
       "field-ort"
+      "label-compare"
+      "field-compare"
       "label-week"
       "field-week"
+      "label-years"
+      "field-years"
       "loading";
   }
   h1 {
